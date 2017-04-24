@@ -1,0 +1,44 @@
+---
+# tasks file for ansible-role-gluster
+
+- name: Enable Extras repo
+  yum_repository:
+    name: "extras"
+    description: 'CentOS-$releasever - Extras'
+    mirrorlist: "{{gluster_extras_mirrorlist}}"
+    gpgkey: "{{gluster_extras_gpgkey}}"
+    enabled: yes
+    state: present
+  when: gluster_install_extras == True and ansible_distribution == 'CentOS'
+
+- name: Install and enable Gluster repo
+  yum:
+    name: "{{gluster_extras_package}}"
+    state: present
+    update_cache: yes
+
+- name: Remove Extras repo
+  yum_repository:
+    name: "extras"
+    state: absent
+  when: gluster_remove_extras == True and ansible_distribution == 'CentOS'
+
+- name: Install Gluster Server
+  yum:
+    name: glusterfs-server
+    state: present
+  when: gluster_type == "server"
+
+- name: Enable glusterd service
+  service:
+    name: glusterd
+    enabled: yes
+    state: started
+  when: gluster_type == "server"
+
+- name: Install Gluster Client
+  yum:
+    name: glusterfs-client
+    state: present
+  when: gluster_type == "client"
+

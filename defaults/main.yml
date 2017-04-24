@@ -1,0 +1,10 @@
+---
+# defaults file for ansible-role-gluster
+
+gluster_type: client   # client or server
+gluster_install_extras: True
+gluster_remove_extras: True
+gluster_extras_mirrorlist: 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras&infra=$infra'
+gluster_extras_gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever'
+gluster_extras_package: 'centos-release-gluster38'
+
