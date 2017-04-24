@@ -7,4 +7,5 @@ gluster_remove_extras: True
 gluster_extras_mirrorlist: 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras&infra=$infra'
 gluster_extras_gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever'
 gluster_extras_package: 'centos-release-gluster38'
-
+gluster_attach_volume: yes
+gluster_mounts: []

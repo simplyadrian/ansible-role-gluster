@@ -42,3 +42,12 @@
     state: present
   when: gluster_type == "client"
 
+- name: Ensure the Gluster volume is mounted.
+  mount:
+    name: "{{ item.mount_dir }}"
+    src: "{{ item.host }}:/{{ item.brick_name }}"
+    fstype: glusterfs
+    opts: "defaults,_netdev"
+    state: mounted
+  with_items: "{{ gluster_mounts }}"
+  when: gluster_type == "client" and gluster_attach_volume == "yes"
