@@ -50,4 +50,4 @@
     opts: "defaults,_netdev"
     state: mounted
   with_items: "{{ gluster_mounts }}"
-  when: gluster_type == "client" and gluster_attach_volume == "yes"
+  when: gluster_type == "client" and gluster_attach_volume == true
