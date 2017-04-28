@@ -51,3 +51,16 @@
     state: mounted
   with_items: "{{ gluster_mounts }}"
   when: gluster_type == "client" and gluster_attach_volume == true
+
+- name: Create user for accessing gluster volume
+  user:
+    name: "{{ item.docker_gluster_volume_owner|default(omit) }}"
+    uid: "{{ item.docker_gluster_volume_owner_id|default(omit) }}"
+  with_items: "{{ gluster_mounts }}"
+
+- name: Change ownernship of gluster volume
+  file:
+    owner: "{{ item.docker_gluster_volume_owner|default(omit) }}"
+    group: "{{ item.docker_gluster_volume_owner|default(omit) }}"
+    path: "{{ item.docker_gluster_mount_path|default(omit) }}"
+  with_items: "{{ gluster_mounts }}"
