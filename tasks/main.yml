@@ -54,13 +54,13 @@
 
 - name: Create user for accessing gluster volume
   user:
-    name: "{{ item.docker_gluster_volume_owner|default(omit) }}"
-    uid: "{{ item.docker_gluster_volume_owner_id|default(omit) }}"
+    name: "{{ item.volume_owner|default(omit) }}"
+    uid: "{{ item.volume_owner_id|default(omit) }}"
   with_items: "{{ gluster_mounts }}"
 
 - name: Change ownernship of gluster volume
   file:
-    owner: "{{ item.docker_gluster_volume_owner|default(omit) }}"
-    group: "{{ item.docker_gluster_volume_owner|default(omit) }}"
-    path: "{{ item.docker_gluster_mount_path|default(omit) }}"
+    owner: "{{ item.volume_owner|default(omit) }}"
+    group: "{{ item.volume_owner|default(omit) }}"
+    path: "{{ item.mount_dir|default(omit) }}"
   with_items: "{{ gluster_mounts }}"
